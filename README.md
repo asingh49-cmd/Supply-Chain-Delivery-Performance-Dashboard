@@ -76,7 +76,7 @@ supply_chain_project/
 
 **Source:** [DataCo Supply Chain Dataset](https://www.kaggle.com/datasets/evilspirit05/datasupplychain?resource=download) (Kaggle)
 
-**Size:** 180,000+ orders
+**Size:** 140,000+ orders
 
 **Features:** 53 columns including:
 - Order information (date, status, ID)
