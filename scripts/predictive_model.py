@@ -127,10 +127,23 @@ def plot_feature_importance(feature_importance_df, model_name, importance_col):
 plot_feature_importance(feature_importance_lr, "Logistic Regression", 'abs_coefficient')
 plot_feature_importance(feature_importance_rf, "Random Forest", 'importance')
 print('Using Random Forest predictions as metrics are generally better')
+
+# Original indices from test set
+test_indices = X_test.index
+# Corresponding order IDs from original dataframe
+test_order_ids = df.loc[test_indices, 'order_id'].values
+
 #Save predictions to CSV
 predictions_df = X_test.copy()
+predictions_df['order_id'] = test_order_ids
 predictions_df['actual_late_delivery_risk'] = y_test
 predictions_df['predicted_late_delivery_risk'] = y_pred_rf
 predictions_df['risk_probability'] = y_prob_rf
+#quantile-based risk categorization
+predictions_df['risk_category'] = pd.qcut(
+    predictions_df['risk_probability'],
+    q=[0.0, 0.33, 0.66, 1.0],
+    labels=['Low Risk', 'Medium Risk', 'High Risk']
+)
 predictions_df.to_csv('data/processed/model_predictions.csv', index=False)
 print("Model predictions saved to 'data/processed/model_predictions.csv' using Random Forest Predictions")
