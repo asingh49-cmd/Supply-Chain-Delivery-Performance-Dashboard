@@ -23,21 +23,19 @@ print(f'Loaded {len(df.columns)} columns for modeling')
 
 #Feature Selection
 numeric_features = [
-    'order_item_quantity',
-    'on_time_delivery',
-    'delay_days',
     'order_year',
     'order_quarter',
     'is_weekend',
-    'is_bulk_order'
+    'is_bulk_order',
     'sales',
-    'order_profit_per_order'
+    'order_profit_per_order',
+    'order_item_discount'
 ]
 categorical_features = [
     'market',
     'category_name',
-    'delivery_status',
-    'type'
+    'type',
+    'order_country'
 ]
 target_variable = 'late_delivery_risk'
 
@@ -94,3 +92,45 @@ feature_importance_rf = pd.DataFrame({
 }).sort_values('importance', ascending=False)
 
 #Model Evaluation/Comparison
+def evaluate_model(y_true, y_pred, y_prob, model_name):
+    print(f"Evaluation Metrics for {model_name}:")
+    print(classification_report(y_true, y_pred))
+    print("Confusion Matrix:")
+    print(confusion_matrix(y_true, y_pred))
+    print(f"Accuracy: {accuracy_score(y_true, y_pred):.4f}")
+    print(f"Precision: {precision_score(y_true, y_pred):.4f}")
+    print(f"Recall: {recall_score(y_true, y_pred):.4f}")
+    print(f"F1 Score: {f1_score(y_true, y_pred):.4f}")
+    print(f"ROC AUC Score: {roc_auc_score(y_true, y_prob):.4f}")
+    fpr, tpr, _ = roc_curve(y_true, y_prob)
+    plt.figure()
+    plt.plot(fpr, tpr, label=f'{model_name} (area = {roc_auc_score(y_true, y_prob):.2f})')
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title(f'ROC Curve - {model_name}')
+    plt.legend(loc='lower right')
+    plt.show()
+
+evaluate_model(y_test, y_pred_logreg, y_prob_logreg, "Logistic Regression")
+evaluate_model(y_test, y_pred_rf, y_prob_rf, "Random Forest")
+
+#Plot Feature Importances
+def plot_feature_importance(feature_importance_df, model_name, importance_col):
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=importance_col, y='feature', data=feature_importance_df.head(10))
+    plt.title(f'Top 10 Feature Importances - {model_name}')
+    plt.xlabel(importance_col)
+    plt.ylabel('Feature')
+    plt.show()
+
+plot_feature_importance(feature_importance_lr, "Logistic Regression", 'abs_coefficient')
+plot_feature_importance(feature_importance_rf, "Random Forest", 'importance')
+print('Using Random Forest predictions as metrics are generally better')
+#Save predictions to CSV
+predictions_df = X_test.copy()
+predictions_df['actual_late_delivery_risk'] = y_test
+predictions_df['predicted_late_delivery_risk'] = y_pred_rf
+predictions_df['risk_probability'] = y_prob_rf
+predictions_df.to_csv('data/processed/model_predictions.csv', index=False)
+print("Model predictions saved to 'data/processed/model_predictions.csv' using Random Forest Predictions")
