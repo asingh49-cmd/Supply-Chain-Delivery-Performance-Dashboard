@@ -5,8 +5,13 @@
 [![Tableau](https://img.shields.io/badge/Tableau-Public-E97627?logo=tableau)](https://public.tableau.com)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+![pandas](https://img.shields.io/badge/pandas-150458?style=flat&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-013243?style=flat&logo=numpy&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=flat&logo=sqlalchemy&logoColor=white)
+![EasyNMT](https://img.shields.io/badge/EasyNMT-4B8BBE?style=flat&logo=python&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)
 
-**Link to Dashboard:** [Dashboard](https://public.tableau.com/views/SupplyChainPerformanceDashboard_17674118692570/ExecSummaryKPIs?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+[View Dashboard](https://public.tableau.com/views/SupplyChainPerformanceDashboard_17674118692570/ExecSummaryKPIs?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 ---
 
 ## Project Overview
@@ -60,14 +65,17 @@ supply_chain_project/
 │       └── model_predictions.csv
 │
 ├── scripts/
-│   ├── 01_data_cleaning.py          # Data cleaning & feature engineering
-│   ├── 02_load_to_mysql.py          # Load data to MySQL database
-│   └── 03_predictive_model.py       # Machine learning model
+│   ├── data_cleaning.py          # Data cleaning & feature engineering
+│   ├── load_to_mysql.py          # Load data to MySQL database
+│   └── predictive_model.py       # Machine learning model
 │
 ├── sql/
 │   └── analytical_queries.sql       # Business intelligence queries
 │
-├── images/
+├── images/                         # Screenshots of Dashboards
+|   ├── Exec Summary Dashboard.png   
+│   ├── Operational Deep Dive.png
+│   └── Predictive Analytics.png
 │
 ├── .gitignore
 ├── requirements.txt
@@ -186,12 +194,15 @@ mysql -u root -p supply_chain_db < sql/analytical_queries.sql
 
 ### 1. Executive Summary
 High-level KPIs and trends for leadership decision-making
+![Executive Summary](images/Exec%20Summary%20Dashboard.png)
 
 ### 2. Operational Deep Dive
 Detailed performance metrics by shipping mode, market, and time period
+![Operational Deep Dive](images/Operational%20Deep%20Dive%20Dashboard.png)
 
 ### 3. Predictive Analytics
 Predictive insights on high-risk orders and model performance
+![Predictive Analytics](images/Predictive%20Analytics%20Dashboard.png)
 
 ---
 
@@ -238,8 +249,7 @@ Predictive insights on high-risk orders and model performance
 - **No improvement trend** over 48 months - indicates structural problems
 - **Global underperformance** - all markets and shipping modes affected
 - **Revenue at risk** from customer dissatisfaction across 103,400 late orders
-
-**Annotation**: "Consistently poor performance - no seasonal pattern suggests structural operational issues"
+- **Consistently poor performance** - No seasonal pattern suggests structural operational issues
 
 ### Dashboard 2: Operational Deep Dive
 
