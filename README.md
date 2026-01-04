@@ -1,6 +1,6 @@
 # Supply-Chain-Delivery-Performance-Dashboard
 
-> End-to-end analytics project Analyzing 180,000+ global supply chain orders to identify delivery bottlenecks, predict late delivery risk, and optimize logistics operations.
+> End-to-end analytics project analyzing 180,000+ global supply chain orders to identify delivery bottlenecks, predict late delivery risk, and optimize logistics operations.
 
 [![Tableau](https://img.shields.io/badge/Tableau-Public-E97627?logo=tableau)](https://public.tableau.com)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
