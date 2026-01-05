@@ -54,7 +54,7 @@ print("Dropped 'product_description' and 'order_zipcode' columns due to high mis
 numerical_cols = data.select_dtypes(include=[np.number]).columns
 data[numerical_cols] = data[numerical_cols].fillna(data[numerical_cols].median)
 
-# Fill missing values for categorical columns with mode
+# Fill missing values for categorical columns with unknown
 categorical_cols = data.select_dtypes(include=['object']).columns
 data[categorical_cols] = data[categorical_cols].fillna('Unknown')
 
